@@ -1,0 +1,38 @@
+<!-- packageB/pages/character-guide/character-guide.wxml -->
+<view class="page-container curtain-bg">
+  <navigation-bar title="角色图谱" background="transparent" color="#D4AF37" />
+
+  <view class="page-body-safe" style="padding: var(--space-4);">
+    <view style="padding-top: calc(env(safe-area-inset-top) + 88rpx);">
+      <text class="gold-text" style="font-size: var(--font-lg); display: block; text-align: center;">
+        生 · 旦 · 净 · 丑
+      </text>
+      <text style="display: block; text-align: center; color: var(--text-secondary); font-size: var(--font-sm); margin-top: var(--space-2);">
+        识角识戏 · 方知皮影
+      </text>
+    </view>
+
+    <!-- 角色列表 -->
+    <view style="padding: var(--space-6) 0; display: flex; flex-direction: column; gap: var(--space-3);">
+      <block wx:for="{{roles}}" wx:key="id">
+        <view
+          class="gold-card corner-decor"
+          data-role="{{item}}"
+          bindtap="onTapRole"
+          style="display: flex; align-items: center; gap: var(--space-3); padding: var(--space-3) var(--space-4);"
+        >
+          <text style="font-size: 56rpx;">{{item.emoji}}</text>
+          <view style="flex: 1;">
+            <text style="color: var(--gold-primary); font-size: var(--font-md); font-weight: var(--weight-bold); font-family: var(--font-serif);">
+              {{item.name}}
+            </text>
+            <text style="display: block; color: var(--text-secondary); font-size: var(--font-xs); margin-top: 6rpx;">
+              {{item.desc}}
+            </text>
+          </view>
+          <text style="color: var(--text-muted); font-size: var(--font-2xl);">›</text>
+        </view>
+      </block>
+    </view>
+  </view>
+</view>

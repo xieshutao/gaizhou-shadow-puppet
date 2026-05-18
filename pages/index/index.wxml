@@ -1,0 +1,80 @@
+<!-- index.wxml — 首页 -->
+<view class="page-container">
+
+  <!-- 全屏背景 -->
+  <image class="bg" src="/images/bg.png" mode="aspectFill"></image>
+
+  <!-- 左上角标题区域 -->
+  <view class="title-area">
+    <image class="title-img" src="/images/title.png" mode="widthFix"></image>
+    <view class="subtitle-wrap">
+      <text class="subtitle-en">GAIZHOU SHADOW PLAY</text>
+    </view>
+    <text class="subtitle-gold">非遗传承 · 光影匠心</text>
+  </view>
+
+  <!-- 左侧导航菜单 -->
+  <view class="left-nav">
+    <view class="nav-item">
+      <image class="nav-icon" src="/images/icon-1.png" mode="aspectFit"></image>
+      <text class="nav-text">盖州皮影</text>
+    </view>
+    <view class="nav-item">
+      <image class="nav-icon" src="/images/icon-2.png" mode="aspectFit"></image>
+      <text class="nav-text">历史渊源</text>
+    </view>
+    <view class="nav-item">
+      <image class="nav-icon" src="/images/icon-3.png" mode="aspectFit"></image>
+      <text class="nav-text">艺术特色</text>
+    </view>
+  </view>
+
+  <!-- 底部核心舞台区域 -->
+  <view class="stage-wrap">
+    <image class="stage-img" src="/images/stage.png" mode="widthFix"></image>
+  </view>
+
+  <!-- 底部悬浮卡片 -->
+  <view class="float-card">
+    <view class="card-corner card-corner-tl"></view>
+    <view class="card-corner card-corner-tr"></view>
+    <view class="card-corner card-corner-bl"></view>
+    <view class="card-corner card-corner-br"></view>
+    <view class="card-content">
+      <text class="card-title">光影之间</text>
+      <view class="card-divider">
+        <view class="divider-line"></view>
+        <view class="divider-diamond"></view>
+        <view class="divider-line"></view>
+      </view>
+      <text class="card-subtitle">传 承 千 年</text>
+      <text class="card-quote">一口道尽千古事　双手对舞百万兵</text>
+    </view>
+  </view>
+
+  <!-- 右侧悬浮按钮 -->
+  <view class="float-btn">
+    <image class="play-icon" src="/images/icon-1.png" mode="aspectFit"></image>
+    <text class="btn-text">查</text>
+    <text class="btn-text">看</text>
+    <text class="btn-text">演</text>
+    <text class="btn-text">出</text>
+  </view>
+
+  <!-- 底部导航栏 -->
+  <view class="tabbar">
+    <view class="tab-item tab-active">
+      <text class="tab-icon">宅</text>
+      <text class="tab-label">首页</text>
+    </view>
+    <view class="tab-item" bindtap="onTabInteractive">
+      <text class="tab-icon">戲</text>
+      <text class="tab-label">互动馆</text>
+    </view>
+    <view class="tab-item">
+      <text class="tab-icon">吾</text>
+      <text class="tab-label">我的</text>
+    </view>
+  </view>
+
+</view>

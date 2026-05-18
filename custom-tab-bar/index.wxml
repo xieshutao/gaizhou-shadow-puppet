@@ -1,0 +1,31 @@
+<!-- custom-tab-bar/index.wxml -->
+<!-- 盖州皮影戏 · 自定义底部导航 · 敦煌暗金舞台风格 -->
+
+<view class="tabbar-wrap">
+  <!-- 顶部金线 -->
+  <view class="tabbar-glow-line"></view>
+
+  <view class="tabbar-inner">
+    <block wx:for="{{list}}" wx:key="pagePath">
+      <view
+        class="tab-item {{selected === index ? 'tab-active' : ''}}"
+        data-index="{{index}}"
+        bindtap="switchTab"
+      >
+        <!-- 选中指示金粒 -->
+        <view class="tab-indicator" wx:if="{{selected === index}}"></view>
+
+        <!-- 图标 -->
+        <view class="tab-icon-wrap">
+          <text class="tab-icon-emoji">{{item.icon}}</text>
+        </view>
+
+        <!-- 文字 -->
+        <text class="tab-label">{{item.text}}</text>
+      </view>
+    </block>
+  </view>
+
+  <!-- 底部安全区占位 -->
+  <view class="tabbar-safe-area"></view>
+</view>

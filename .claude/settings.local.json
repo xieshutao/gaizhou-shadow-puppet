@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(Invoke-WebRequest -Uri \"https://github.com/TencentCloudBase/skills/archive/main.zip\" -OutFile \"$env:TEMP\\\\skills-main.zip\" -UseBasicParsing; Write-Output \"Download complete: $env:TEMP\\\\skills-main.zip\")",
+      "PowerShell(Expand-Archive)",
+      "PowerShell(Get-ChildItem)",
+      "PowerShell(Get-ChildItem *)",
+      "PowerShell(Test-Path *)",
+      "PowerShell(Get-Item *)",
+      "PowerShell(Get-ChildItem -Path \"C:\\\\Users\\\\LENOVO\\\\AppData\\\\Local\\\\Temp\\\\skills-main\" -Recurse -Directory | Where-Object { $_.Name -eq \"ui-design\" } | Select-Object FullName)",
+      "PowerShell(Head-Object *)",
+      "PowerShell($zip = Get-Item \"C:\\\\Users\\\\LENOVO\\\\AppData\\\\Local\\\\Temp\\\\skills-main.zip\"; Write-Output \"Size: $\\($zip.Length\\) bytes\"; Test-Path \"C:\\\\Users\\\\LENOVO\\\\AppData\\\\Local\\\\Temp\\\\skills-main\")",
+      "PowerShell(Get-ChildItem -Path \"C:\\\\Users\\\\LENOVO\\\\AppData\\\\Local\\\\Temp\\\\skills-main\" -Recurse | Select-Object -First 60 | ForEach-Object { $_.FullName })",
+      "PowerShell(Get-ChildItem -Path \"C:\\\\Users\\\\LENOVO\\\\AppData\\\\Local\\\\Temp\\\\skills-main\\\\skills-main\\\\skills\\\\ui-design\" -Recurse | ForEach-Object { $_.FullName })",
+      "PowerShell(Get-ChildItem -Path \"C:\\\\Users\\\\LENOVO\\\\.claude\\\\skills\\\\ui-design\" -Recurse | ForEach-Object { $_.FullName })",
+      "WebSearch",
+      "WebFetch(domain:www.ux-design-awards.com)",
+      "WebFetch(domain:dribbble.com)"
+    ]
+  }
+}

@@ -1,0 +1,13 @@
+<view
+  class="toast-wrapper toast-wrapper--{{position}} {{visible ? 'toast-wrapper--visible' : ''}}"
+  catch:tap="onTap"
+>
+  <view class="toast {{icon ? 'toast--has-icon' : ''}}">
+    <!-- Icon -->
+    <text wx:if="{{icon}}" class="toast__icon toast__icon--{{icon}}">
+      {{iconMap[icon] || icon}}
+    </text>
+    <!-- Message -->
+    <text wx:if="{{message}}" class="toast__message">{{message}}</text>
+  </view>
+</view>

@@ -1,0 +1,184 @@
+<!-- pages/create-play/create-play.wxml -->
+<!-- 盖州皮影 · AI造戏 — 影窗戏台，选角配景 -->
+
+<view class="page-root">
+
+  <!-- ======== 舞台背景层 ======== -->
+  <view class="stage-bg"></view>
+  <view class="spotlight"></view>
+  <view class="vignette"></view>
+  <view class="curtain-l"></view>
+  <view class="curtain-r"></view>
+  <view class="curtain-top-bar"></view>
+
+  <!-- ================================================================ -->
+  <!-- 阶段一：选择                                                       -->
+  <!-- ================================================================ -->
+  <view class="layer-input" wx:if="{{phase === 'input'}}">
+
+    <view class="hd">
+      <text class="hd-title">AI 造戏</text>
+      <text class="hd-sub">盖州皮影 · 八大故事</text>
+    </view>
+
+    <!-- 搜索 -->
+    <view class="search-box">
+      <input class="search-inp" placeholder="输入关键词自动匹配，如「穆桂英 风雪」"
+        placeholder-style="color:rgba(255,255,255,0.15)"
+        value="{{inputText}}" bindinput="onInput" bindconfirm="onInputConfirm" confirm-type="search"/>
+    </view>
+
+    <!-- 当前已选状态栏 -->
+    <view class="picks-bar">
+      <text class="picks-item {{selStory ? 'picks-on' : ''}}">
+        {{selStory ? selStory.name : '故事?'}}
+      </text>
+      <text class="picks-arrow">·</text>
+      <text class="picks-item {{selChar ? 'picks-on' : ''}}">
+        {{selChar ? selChar.name : '人物?'}}
+      </text>
+      <text class="picks-arrow">·</text>
+      <text class="picks-item {{selScene ? 'picks-on' : ''}}">
+        {{selScene ? selScene.name : '场景?'}}
+      </text>
+      <text class="picks-arrow">·</text>
+      <text class="picks-item {{selEffect ? 'picks-on' : ''}}">
+        {{selEffect ? selEffect.name : '特效?'}}
+      </text>
+    </view>
+
+    <!-- === 故事 (横向滚动大卡) === -->
+    <view class="sec">
+      <view class="sec-hd"><text class="sec-dot">●</text><text class="sec-tit">故 事</text><text class="sec-tag">8个</text></view>
+      <scroll-view class="row-scroll" scroll-x enhanced show-scrollbar="{{false}}">
+        <view class="story-card {{selStory && selStory.id === item.id ? 'card-active' : ''}}"
+          wx:for="{{stories}}" wx:key="id" data-id="{{item.id}}" bindtap="onTapStory">
+          <view class="sc-top">
+            <text class="sc-era {{item.era === '传统剧目' ? 'trad' : 'mod'}}">
+              {{item.era === '传统剧目' ? '传统' : '现代'}}
+            </text>
+          </view>
+          <text class="sc-name">{{item.name}}</text>
+          <text class="sc-desc">{{item.summary}}</text>
+        </view>
+      </scroll-view>
+    </view>
+
+    <!-- === 人物 (紧凑标签) === -->
+    <view class="sec sec-sm">
+      <view class="sec-hd"><text class="sec-dot">●</text><text class="sec-tit">人 物</text></view>
+      <scroll-view class="row-scroll" scroll-x enhanced show-scrollbar="{{false}}">
+        <view class="chip {{selChar && selChar.id === item.id ? 'chip-on' : ''}}"
+          wx:for="{{characters}}" wx:key="id" data-id="{{item.id}}" bindtap="onTapChar">
+          <text class="chip-role">{{item.role}}</text>
+          <text class="chip-name">{{item.name}}</text>
+        </view>
+      </scroll-view>
+    </view>
+
+    <!-- === 场景 === -->
+    <view class="sec sec-sm">
+      <view class="sec-hd"><text class="sec-dot">●</text><text class="sec-tit">场 景</text></view>
+      <scroll-view class="row-scroll" scroll-x enhanced show-scrollbar="{{false}}">
+        <view class="chip {{selScene && selScene.id === item.id ? 'chip-on' : ''}}"
+          wx:for="{{scenes}}" wx:key="id" data-id="{{item.id}}" bindtap="onTapScene">
+          <text class="chip-name">{{item.name}}</text>
+        </view>
+      </scroll-view>
+    </view>
+
+    <!-- === 特效 === -->
+    <view class="sec sec-sm">
+      <view class="sec-hd"><text class="sec-dot">●</text><text class="sec-tit">特 效</text></view>
+      <scroll-view class="row-scroll" scroll-x enhanced show-scrollbar="{{false}}">
+        <view class="chip {{selEffect && selEffect.id === item.id ? 'chip-on' : ''}}"
+          wx:for="{{effects}}" wx:key="id" data-id="{{item.id}}" bindtap="onTapEffect">
+          <text class="chip-name">{{item.name}}</text>
+        </view>
+      </scroll-view>
+    </view>
+
+    <!-- 生成按钮 -->
+    <view class="btn-wrap">
+      <view class="btn-main" bindtap="onGenerate">
+        <text class="btn-txt">⚡ 一键生成</text>
+      </view>
+    </view>
+
+  </view>
+
+  <!-- ================================================================ -->
+  <!-- 阶段二：结果 — 影窗戏台                                         -->
+  <!-- ================================================================ -->
+  <view class="layer-result" wx:if="{{phase === 'result'}}">
+
+    <!-- 影窗 -->
+    <view class="screen">
+      <!-- 影窗内边框装饰 -->
+      <view class="screen-border"></view>
+
+      <!-- 故事标题 -->
+      <view class="screen-story">
+        <text class="ss-era {{resultStory.era === '传统剧目' ? 'trad' : 'mod'}}">
+          {{resultStory.era === '传统剧目' ? '传统剧目' : '现代创作'}}
+        </text>
+        <text class="ss-name">{{resultStory.name}}</text>
+      </view>
+
+      <!-- 影窗中心：人物 -->
+      <view class="screen-hero">
+        <text class="sh-role">{{resultChar.role}}</text>
+        <text class="sh-name">{{resultChar.name}}</text>
+        <text class="sh-line">{{resultChar.summary}}</text>
+      </view>
+
+      <!-- 影窗底部信息行 -->
+      <view class="screen-info">
+        <view class="si-item">
+          <text class="si-label">场景</text>
+          <text class="si-val">{{resultScene.name}}</text>
+        </view>
+        <view class="si-div">│</view>
+        <view class="si-item">
+          <text class="si-label">特效</text>
+          <text class="si-val">{{resultEffect.name}}</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 故事梗概 -->
+    <view class="synopsis">
+      <text class="syn-text">{{resultStory.summary}}</text>
+    </view>
+
+    <!-- 出处标注 -->
+    <view class="credit">
+      <text class="credit-text">—— 改编自盖州皮影《{{resultStory.name}}》{{resultStory.era}}</text>
+    </view>
+
+    <!-- 操作 -->
+    <view class="btn-wrap">
+      <view class="btn-main btn-reset" bindtap="onReset">
+        <text class="btn-txt">↻ 再来一出</text>
+      </view>
+    </view>
+
+  </view>
+
+  <!-- ======== 底部导航 ======== -->
+  <view class="tabbar">
+    <view class="tab-i" bindtap="onTabHome">
+      <text class="tab-ico">⌂</text>
+      <text class="tab-lbl">首页</text>
+    </view>
+    <view class="tab-i on">
+      <text class="tab-ico">◈</text>
+      <text class="tab-lbl">互动馆</text>
+    </view>
+    <view class="tab-i">
+      <text class="tab-ico">🎭</text>
+      <text class="tab-lbl">造戏</text>
+    </view>
+  </view>
+
+</view>

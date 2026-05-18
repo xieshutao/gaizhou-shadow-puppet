@@ -1,0 +1,33 @@
+<!-- packageB/pages/knowledge/knowledge.wxml -->
+<view class="page-container curtain-bg">
+  <navigation-bar title="皮影知识" background="transparent" color="#D4AF37" />
+
+  <view class="page-body-safe" style="padding: var(--space-4);">
+    <!-- 页面标题 -->
+    <view style="padding-top: calc(env(safe-area-inset-top) + 88rpx);">
+      <text class="gold-text" style="font-size: var(--font-lg); display: block; text-align: center;">
+        皮影知识库
+      </text>
+      <text style="display: block; text-align: center; color: var(--text-secondary); font-size: var(--font-sm); margin-top: var(--space-2);">
+        一字一句 · 皆是戏
+      </text>
+    </view>
+
+    <!-- 分类卡片网格 -->
+    <view style="display: flex; flex-wrap: wrap; gap: var(--space-3); padding: var(--space-6) 0;">
+      <block wx:for="{{categories}}" wx:key="id">
+        <view
+          class="gold-card corner-decor"
+          data-id="{{item.id}}"
+          bindtap="onTapCategory"
+          style="flex: 1 1 calc(50% - 12rpx); min-width: 280rpx; padding: var(--space-5); display: flex; flex-direction: column; align-items: center; gap: var(--space-2);"
+        >
+          <text style="font-size: 64rpx;">{{item.icon}}</text>
+          <text style="color: var(--gold-primary); font-size: var(--font-md); font-family: var(--font-serif); font-weight: var(--weight-bold);">
+            {{item.name}}
+          </text>
+        </view>
+      </block>
+    </view>
+  </view>
+</view>

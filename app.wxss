@@ -1,0 +1,533 @@
+/* ═══════════════════════════════════════════════════════════
+   盖州皮影戏 · 全局设计系统
+   参考：云游敦煌色彩体系 + 皮影暗金舞台风格
+   ═══════════════════════════════════════════════════════════ */
+
+/* ──────────────────────────────────────────────
+   一、皮影色板 · CSS Custom Properties
+   灵感来源：敦煌暗金 × 皮影戏台 × 古经卷纸
+   ────────────────────────────────────────────── */
+
+page {
+  /* ── 主色系：暖金 ── */
+  --gold-primary:       #D4AF37;       /* 暖琥珀金 · 云纹金线 */
+  --gold-light:         #E8CC6E;       /* 浅金色 · 高光 */
+  --gold-dark:          #9B7B1E;       /* 暗金色 · 描边 */
+  --gold-glow:          rgba(212, 175, 55, 0.5);  /* 金辉光晕 */
+  --gold-faint:         rgba(212, 175, 55, 0.15); /* 微弱金芒 */
+  --gold-border:        rgba(212, 175, 55, 0.55); /* 边框金 */
+
+  /* ── 底色系：深舞台 ── */
+  --bg-stage:           #0a0604;       /* 戏台漆黑夜色 · 舞台基底 */
+  --bg-drawer:          #0e0802;       /* 抽屉深色 · TabBar/面板 */
+  --bg-card:            rgba(28, 16, 6, 0.93);    /* 卡片底色 · 暗棕浮层 */
+  --bg-overlay:         rgba(14, 8, 2, 0.88);     /* 遮罩层 */
+  --bg-curtain:         radial-gradient(ellipse at 50% 0%, #1a0c02 0%, #0a0604 70%); /* 帷幕渐变 */
+
+  /* ── 强调色 ── */
+  --red-oxblood:        #8B1A1A;       /* 皮影牛血红 · 关键强调 */
+  --red-dark:           #5C0E0E;       /* 暗红 · 警示/删除 */
+  --red-glow:           rgba(139, 26, 26, 0.45);  /* 红光晕 */
+
+  /* ── 纸卷系 ── */
+  --parchment:          #FFF8E7;       /* 古经卷纸 · 浅色卡片背 */
+  --parchment-warm:     #F5E6C8;       /* 暖纸色 · 次级卡片 */
+  --parchment-border:   rgba(180, 140, 90, 0.25); /* 纸边线 */
+
+  /* ── 木质系 ── */
+  --wood-brown:         #3B2306;       /* 刻木深褐 · 雕刻框线 */
+  --wood-light:         #5C3A10;       /* 浅木色 · 次级木质 UI */
+
+  /* ── 文字色 ── */
+  --text-primary:       rgba(255, 240, 200, 0.95);  /* 主要文字 · 暖白 */
+  --text-secondary:     rgba(255, 240, 200, 0.75);  /* 辅助文字 */
+  --text-muted:         rgba(255, 240, 200, 0.40);  /* 禁用/弱化 */
+  --text-gold:          #D4AF37;                     /* 金色强调文字 */
+  --text-parchment:     #3B2306;                     /* 纸面上的文字色 */
+  --text-parchment-sub: rgba(59, 35, 6, 0.65);       /* 纸面辅助文字 */
+
+  /* ── 状态色 ── */
+  --success:            #58b26e;       /* 成功的铜绿 */
+  --warning:            #D4AF37;       /* 警示金 */
+  --error:              #8B1A1A;       /* 错误红 */
+
+  /* ── 阴影层 ── */
+  --shadow-xs:          0 2rpx 8rpx rgba(0, 0, 0, 0.3);
+  --shadow-sm:          0 4rpx 16rpx rgba(0, 0, 0, 0.5);
+  --shadow-md:          0 8rpx 32rpx rgba(0, 0, 0, 0.6);
+  --shadow-lg:          0 12rpx 48rpx rgba(0, 0, 0, 0.7);
+  --shadow-gold:        0 0 24rpx var(--gold-glow);
+  --shadow-red:         0 0 20rpx var(--red-glow);
+
+  /* ── 边框 ── */
+  --border-gold:        1rpx solid rgba(212, 175, 55, 0.55);
+  --border-faint:       1rpx solid rgba(212, 175, 55, 0.18);
+  --border-wood:        2rpx solid var(--wood-brown);
+  --border-card:        1rpx solid rgba(212, 175, 55, 0.35);
+
+  /* ── 圆角 ── */
+  --radius-xs:          4rpx;
+  --radius-sm:          8rpx;
+  --radius-md:          16rpx;
+  --radius-lg:          24rpx;
+  --radius-xl:          32rpx;
+  --radius-full:        9999rpx;
+}
+
+
+/* ──────────────────────────────────────────────
+   二、字体系统 · Typography Scale
+   单位：rpx · 基数为 16（1rpx ≈ 0.5px @ 375 宽）
+   ────────────────────────────────────────────── */
+
+page {
+  --font-2xl:           64rpx;   /* 大标题 / 活动主标题 */
+  --font-xl:            56rpx;   /* 首页数字展示 */
+  --font-lg:            48rpx;   /* 卡片标题 */
+  --font-md:            40rpx;   /* 重要数字 / 二级标题 */
+  --font-base:          34rpx;   /* 正文 */
+  --font-sm:            28rpx;   /* 辅助说明 / 标签文字 */
+  --font-xs:            24rpx;   /* 辅助信息 / 注释 */
+  --font-2xs:           20rpx;   /* 备注 / 极小文字 */
+  --font-3xs:           16rpx;   /* 最小字号（版权等） */
+
+  /* 字重 */
+  --weight-light:       300;
+  --weight-normal:      400;
+  --weight-medium:      500;
+  --weight-semibold:    600;
+  --weight-bold:        700;
+
+  /* 行高 */
+  --leading-tight:      1.2;
+  --leading-normal:     1.5;
+  --leading-relaxed:    1.8;
+
+  /* 字间距 */
+  --tracking-title:     6rpx;
+  --tracking-normal:    3rpx;
+  --tracking-wide:      10rpx;
+
+  /* 字体系列 */
+  --font-serif:         "SimSun", "宋体", "Noto Serif SC", serif;
+  --font-sans:          -apple-system, BlinkMacSystemFont, "PingFang SC",
+                        "Helvetica Neue", "Microsoft YaHei", sans-serif;
+}
+
+
+/* ──────────────────────────────────────────────
+   三、间距系统 · Spacing Tokens
+   基于 4rpx 基准 · 8 级阶梯
+   ────────────────────────────────────────────── */
+
+page {
+  --space-0:            0;
+  --space-1:            8rpx;    /* 紧密间距 */
+  --space-2:            16rpx;   /* 标签间距 */
+  --space-3:            24rpx;   /* 列表项间距 */
+  --space-4:            32rpx;   /* 内容区内边距 */
+  --space-5:            40rpx;   /* 中等间距 */
+  --space-6:            48rpx;   /* 卡片间间距 */
+  --space-7:            56rpx;   /* 大模块间距 */
+  --space-8:            64rpx;   /* 页面级模块间距 */
+
+  /* 语义间距 */
+  --gap-page:           64rpx;
+  --gap-section:        48rpx;
+  --gap-card:           40rpx;
+  --gap-list:           24rpx;
+  --gap-tight:          16rpx;
+  --gap-mini:           8rpx;
+
+  /* 页面边距 */
+  --page-padding-x:     40rpx;
+  --page-padding-y:     32rpx;
+  --card-padding:       36rpx;
+  --card-padding-sm:    24rpx;
+}
+
+
+/* ──────────────────────────────────────────────
+   四、Z-Index 层级系统
+   参考云游敦煌：从 -1 到 10000
+   ────────────────────────────────────────────── */
+
+page {
+  --z-below:            -1;       /* 背景之后 */
+  --z-bg:               0;        /* 背景层 */
+  --z-content:          1;        /* 内容层 */
+  --z-raised:           4;        /* 轻微浮起 */
+  --z-dropdown:         10;       /* 下拉菜单 */
+  --z-sticky:           50;       /* 吸顶元素 */
+  --z-overlay:          100;      /* 半屏弹窗 */
+  --z-drawer:           200;      /* 抽屉/侧栏 */
+  --z-modal:            300;      /* 标准模态弹窗 */
+  --z-toast:            500;      /* Toast 提示 */
+  --z-action-sheet:     600;      /* 动作面板 */
+  --z-popover:          700;      /* 气泡弹出 */
+  --z-navigation:       900;      /* 导航栏 */
+  --z-tabbar:           1000;     /* 底部 TabBar */
+  --z-topmost:          9999;     /* 顶层遮罩 / 全局弹窗 */
+}
+
+
+/* ──────────────────────────────────────────────
+   五、动画参数
+   ────────────────────────────────────────────── */
+
+page {
+  --ease-out:           cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --ease-in:            cubic-bezier(0.55, 0.055, 0.675, 0.19);
+  --ease-in-out:        cubic-bezier(0.645, 0.045, 0.355, 1);
+  --ease-bounce:        cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+  --duration-fast:      150ms;
+  --duration-normal:    300ms;
+  --duration-slow:      500ms;
+  --duration-slower:    800ms;
+
+  --blur-sm:            blur(8px);
+  --blur-md:            blur(16px);
+  --blur-lg:            blur(24px);
+}
+
+
+/* ═══════════════════════════════════════════════════════════
+   六、Safe-Area 通用工具类
+   ═══════════════════════════════════════════════════════════ */
+
+/* 顶部安全区 */
+.safe-top {
+  padding-top: constant(safe-area-inset-top);
+  padding-top: env(safe-area-inset-top);
+}
+
+.safe-top-margin {
+  margin-top: constant(safe-area-inset-top);
+  margin-top: env(safe-area-inset-top);
+}
+
+/* 底部安全区 */
+.safe-bottom {
+  padding-bottom: constant(safe-area-inset-bottom);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.safe-bottom-margin {
+  margin-bottom: constant(safe-area-inset-bottom);
+  margin-bottom: env(safe-area-inset-bottom);
+}
+
+/* 上下安全区 */
+.safe-area-padding {
+  padding-top: constant(safe-area-inset-top);
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: constant(safe-area-inset-bottom);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+
+/* ═══════════════════════════════════════════════════════════
+   七、全局基础重置
+   ═══════════════════════════════════════════════════════════ */
+
+/* page 全局基线 */
+page {
+  font-family: var(--font-sans);
+  font-size: var(--font-base);
+  line-height: var(--leading-normal);
+  color: var(--text-primary);
+  background-color: var(--bg-stage);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  box-sizing: border-box;
+}
+
+/* 统一盒模型 */
+page,
+page *,
+page *::before,
+page *::after {
+  box-sizing: border-box;
+}
+
+/* 隐藏滚动条（全局） */
+::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+  color: transparent;
+}
+
+/* 禁止文字选中（非输入区域） */
+.no-select {
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* 一行省略 */
+.ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* 多行省略 */
+.ellipsis-2 {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ellipsis-3 {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+/* ═══════════════════════════════════════════════════════════
+   八、皮影视觉工具类
+   ═══════════════════════════════════════════════════════════ */
+
+/* 金边卡片 */
+.gold-card {
+  background-color: var(--bg-card);
+  border: var(--border-gold);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md), var(--shadow-gold);
+}
+
+/* 纸卷卡片（浅色模式） */
+.parchment-card {
+  background-color: var(--parchment);
+  border: 1rpx solid var(--parchment-border);
+  border-radius: var(--radius-md);
+  color: var(--text-parchment);
+}
+
+/* 帷幕背景 */
+.curtain-bg {
+  background: var(--bg-curtain);
+}
+
+/* 金辉文字 */
+.gold-text {
+  color: var(--gold-primary);
+  text-shadow: 0 0 24rpx var(--gold-glow),
+               0 2rpx 4rpx rgba(0, 0, 0, 0.8);
+}
+
+/* 戏台木板底纹 */
+.wood-texture {
+  background-color: var(--wood-brown);
+  background-image:
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 3rpx,
+      rgba(212, 175, 55, 0.04) 3rpx,
+      rgba(212, 175, 55, 0.04) 4rpx
+    );
+}
+
+/* 毛玻璃浮层 */
+.glass-float {
+  backdrop-filter: var(--blur-md);
+  -webkit-backdrop-filter: var(--blur-md);
+  background: rgba(14, 8, 2, 0.82);
+  border: var(--border-faint);
+}
+
+/* 四角金色装饰（用于卡片） */
+.corner-decor {
+  position: relative;
+}
+.corner-decor::before,
+.corner-decor::after {
+  content: '';
+  position: absolute;
+  width: 20rpx;
+  height: 20rpx;
+}
+.corner-decor::before {
+  top: 8rpx;
+  left: 8rpx;
+  border-top: 2rpx solid var(--gold-primary);
+  border-left: 2rpx solid var(--gold-primary);
+}
+.corner-decor::after {
+  bottom: 8rpx;
+  right: 8rpx;
+  border-bottom: 2rpx solid var(--gold-primary);
+  border-right: 2rpx solid var(--gold-primary);
+}
+
+/* 分隔线：线 + 菱形 + 线（敦煌风） */
+.gold-divider {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10rpx;
+  width: 100%;
+}
+.gold-divider::before,
+.gold-divider::after {
+  content: '';
+  flex: 1;
+  height: 1rpx;
+  background: linear-gradient(
+    to right,
+    rgba(212, 175, 55, 0.8),
+    rgba(212, 175, 55, 0.15)
+  );
+}
+.gold-divider::after {
+  background: linear-gradient(
+    to left,
+    rgba(212, 175, 55, 0.8),
+    rgba(212, 175, 55, 0.15)
+  );
+}
+.gold-divider-diamond {
+  width: 10rpx;
+  height: 10rpx;
+  background: var(--gold-primary);
+  transform: rotate(45deg);
+  flex-shrink: 0;
+  box-shadow: 0 0 8rpx var(--gold-glow);
+}
+
+/* 金色按钮（主按钮） */
+.btn-gold {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(
+    135deg,
+    var(--gold-dark),
+    var(--gold-primary),
+    var(--gold-dark)
+  );
+  color: var(--bg-stage);
+  font-weight: var(--weight-bold);
+  border-radius: var(--radius-sm);
+  box-shadow: 0 4rpx 16rpx var(--gold-faint);
+  transition: opacity var(--duration-fast) var(--ease-out);
+}
+.btn-gold:active {
+  opacity: 0.8;
+}
+
+/* 浮雕文字 */
+.text-relief {
+  text-shadow:
+    0 1rpx 0 rgba(212, 175, 55, 0.4),
+    0 -1rpx 0 rgba(0, 0, 0, 0.6);
+}
+
+
+/* ═══════════════════════════════════════════════════════════
+   九、布局工具类
+   ═══════════════════════════════════════════════════════════ */
+
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.flex-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-1 {
+  flex: 1;
+}
+
+/* 全屏占位（用于页面容器） */
+.page-full {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* 页面内容区（避开 TabBar） */
+.page-body {
+  width: 100%;
+  min-height: 100vh;
+  padding-bottom: 120rpx; /* TabBar 高度 */
+  box-sizing: border-box;
+}
+
+/* 安全区页面内容 */
+.page-body-safe {
+  width: 100%;
+  min-height: 100vh;
+  padding-top: constant(safe-area-inset-top);
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: calc(constant(safe-area-inset-bottom) + 120rpx);
+  padding-bottom: calc(env(safe-area-inset-bottom) + 120rpx);
+  box-sizing: border-box;
+}
+
+
+/* ═══════════════════════════════════════════════════════════
+   十、动画关键帧
+   ═══════════════════════════════════════════════════════════ */
+
+/* 渐显 */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* 渐隐 */
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+}
+
+/* 从下浮入 */
+@keyframes slideUp {
+  from { transform: translateY(40rpx); opacity: 0; }
+  to   { transform: translateY(0); opacity: 1; }
+}
+
+/* 金辉呼吸 */
+@keyframes goldPulse {
+  0%, 100% { box-shadow: 0 0 12rpx var(--gold-faint); }
+  50%      { box-shadow: 0 0 32rpx var(--gold-glow); }
+}
+
+/* 帷幕飘动 */
+@keyframes curtainWave {
+  0%, 100% { transform: scaleY(1); }
+  50%      { transform: scaleY(1.02); }
+}
+
+/* 皮影浮动 */
+@keyframes puppetFloat {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-8rpx); }
+}
+
+/* 灯影闪烁 */
+@keyframes lanternFlicker {
+  0%, 100% { opacity: 0.85; }
+  25%      { opacity: 0.7; }
+  50%      { opacity: 0.95; }
+  75%      { opacity: 0.78; }
+}

@@ -1,0 +1,105 @@
+{
+  "pages": [
+    "pages/guide/index",
+    "pages/index/index",
+    "pages/interactive/interactive",
+    "pages/elder-chat/elder-chat",
+    "pages/create-play/create-play",
+    "pages/explore/index",
+    "pages/heritage/index",
+    "pages/user/index"
+  ],
+  "subPackages": [
+    {
+      "root": "packageTab",
+      "name": "tab-pages",
+      "pages": [
+        "pages/explore/index",
+        "pages/heritage/index",
+        "pages/user/index"
+      ]
+    },
+    {
+      "root": "packageB",
+      "name": "knowledge",
+      "pages": [
+        "pages/knowledge/knowledge",
+        "pages/character-guide/character-guide"
+      ]
+    }
+  ],
+  "preloadRule": {
+    "pages/index/index": {
+      "packages": [
+        "tab-pages"
+      ],
+      "network": "all"
+    },
+    "pages/interactive/interactive": {
+      "packages": [
+        "knowledge"
+      ],
+      "network": "wifi"
+    }
+  },
+  "window": {
+    "navigationStyle": "custom",
+    "backgroundTextStyle": "light",
+    "backgroundColor": "#0a0604",
+    "backgroundColorTop": "#0a0604",
+    "backgroundColorBottom": "#0a0604",
+    "navigationBarBackgroundColor": "#0a0604",
+    "navigationBarTitleText": "盖州皮影戏",
+    "navigationBarTextStyle": "white",
+    "onReachBottomDistance": 50
+  },
+  "tabBar": {
+    "custom": true,
+    "color": "rgba(255, 240, 200, 0.3)",
+    "selectedColor": "#D4AF37",
+    "backgroundColor": "#0e0802",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/explore/index",
+        "text": "探索"
+      },
+      {
+        "pagePath": "pages/interactive/interactive",
+        "text": "体验"
+      },
+      {
+        "pagePath": "pages/heritage/index",
+        "text": "传承"
+      },
+      {
+        "pagePath": "pages/user/index",
+        "text": "我的"
+      }
+    ]
+  },
+  "permission": {
+    "scope.record": {
+      "desc": "需要使用你的麦克风与老艺人对话"
+    }
+  },
+  "requiredBackgroundModes": [],
+  "plugins": {},
+  "style": "v2",
+  "sitemapLocation": "sitemap.json",
+  "lazyCodeLoading": "requiredComponents",
+  "subpackages": [
+    {
+      "root": "packageB",
+      "name": "knowledge",
+      "pages": [
+        "pages/knowledge/knowledge",
+        "pages/character-guide/character-guide"
+      ]
+    }
+  ]
+}

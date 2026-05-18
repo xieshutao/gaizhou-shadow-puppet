@@ -1,0 +1,105 @@
+/* ── Toast · Gold-on-Dark Notification ── */
+/* 盖州皮影戏 theme */
+
+.toast-wrapper {
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10001;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.toast-wrapper--visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Position variants */
+.toast-wrapper--center {
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.toast-wrapper--top {
+  top: 160rpx;
+}
+
+.toast-wrapper--bottom {
+  bottom: 200rpx;
+}
+
+/* ── Toast bubble ── */
+.toast {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  max-width: 560rpx;
+  padding: 24rpx 40rpx;
+  border-radius: 16rpx;
+  background: rgba(10, 6, 4, 0.92);
+  border: 1rpx solid rgba(212, 175, 55, 0.3);
+  box-shadow:
+    0 8rpx 32rpx rgba(0, 0, 0, 0.6),
+    0 0 20rpx rgba(212, 175, 55, 0.12);
+  backdrop-filter: blur(20rpx);
+  -webkit-backdrop-filter: blur(20rpx);
+  animation: toast-enter 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.toast--has-icon {
+  padding: 24rpx 48rpx;
+}
+
+@keyframes toast-enter {
+  0% {
+    opacity: 0;
+    transform: scale(0.85) translateY(16rpx);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* ── Icon ── */
+.toast__icon {
+  font-size: 40rpx;
+  line-height: 1;
+  margin-right: 16rpx;
+  flex-shrink: 0;
+}
+
+/* Success: gold checkmark */
+.toast__icon--success {
+  color: #D4AF37;
+}
+
+/* Error: warm red-gold */
+.toast__icon--error {
+  color: #CF6679;
+}
+
+/* Warning: amber-gold */
+.toast__icon--warning {
+  color: #DAA520;
+}
+
+/* Info: soft gold */
+.toast__icon--info {
+  color: rgba(212, 175, 55, 0.8);
+}
+
+/* ── Message text ── */
+.toast__message {
+  font-size: 28rpx;
+  line-height: 1.5;
+  color: #D4AF37;
+  text-align: center;
+  word-break: break-all;
+}

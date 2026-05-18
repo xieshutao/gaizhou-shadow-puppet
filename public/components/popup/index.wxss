@@ -1,0 +1,193 @@
+/* ── Popup · Modal Dialog ── */
+/* 盖州皮影戏 dark-stage + gold-border theme */
+
+/* ── Root container ── */
+.popup-root {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ── Backdrop: dark with blur ── */
+.popup__mask {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(12rpx);
+  -webkit-backdrop-filter: blur(12rpx);
+}
+
+/* ── Popup card ── */
+.popup__card {
+  position: relative;
+  z-index: 1;
+  max-width: 90vw;
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  background: rgba(10, 6, 4, 0.96);
+  border: 2rpx solid rgba(212, 175, 55, 0.35);
+  border-radius: 24rpx;
+  box-shadow:
+    0 16rpx 48rpx rgba(0, 0, 0, 0.7),
+    0 0 40rpx rgba(212, 175, 55, 0.08);
+  overflow: hidden;
+}
+
+/* ── Header ── */
+.popup__header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 32rpx 32rpx 16rpx 32rpx;
+  border-bottom: 1rpx solid rgba(212, 175, 55, 0.12);
+}
+
+.popup__title {
+  flex: 1;
+  font-size: 34rpx;
+  font-weight: 600;
+  color: #D4AF37;
+  line-height: 1.4;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ── Close button ── */
+.popup__close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56rpx;
+  height: 56rpx;
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-left: 16rpx;
+  transition: background 0.2s ease;
+}
+
+.popup__close--hover {
+  background: rgba(212, 175, 55, 0.15);
+}
+
+.popup__close-icon {
+  font-size: 32rpx;
+  color: rgba(212, 175, 55, 0.6);
+  font-weight: 300;
+  line-height: 1;
+}
+
+/* ── Content ── */
+.popup__content {
+  flex: 1;
+  padding: 24rpx 32rpx;
+  overflow-y: auto;
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 28rpx;
+  line-height: 1.7;
+  /* Scrollbar styling */
+  -webkit-overflow-scrolling: touch;
+}
+
+/* ── Footer: button area ── */
+.popup__footer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 16rpx;
+  padding: 16rpx 32rpx 32rpx 32rpx;
+  border-top: 1rpx solid rgba(212, 175, 55, 0.12);
+}
+
+/* ── Default button styling for slots ── */
+.popup__footer .btn {
+  padding: 16rpx 40rpx;
+  border-radius: 12rpx;
+  font-size: 28rpx;
+  font-weight: 500;
+  text-align: center;
+  transition: all 0.2s ease;
+}
+
+/* Primary gold button (intended for consumers to use this style) */
+.popup__footer .btn--primary {
+  background: #D4AF37;
+  color: #0a0604;
+  border: none;
+}
+
+.popup__footer .btn--primary:active {
+  opacity: 0.8;
+}
+
+/* Secondary/ghost button */
+.popup__footer .btn--ghost {
+  background: transparent;
+  color: rgba(212, 175, 55, 0.7);
+  border: 1rpx solid rgba(212, 175, 55, 0.3);
+}
+
+.popup__footer .btn--ghost:active {
+  background: rgba(212, 175, 55, 0.1);
+}
+
+/* ── Enter / Leave animations ── */
+.popup-root--in .popup__mask {
+  animation: popup-mask-in 0.3s ease forwards;
+}
+
+.popup-root--in .popup__card {
+  animation: popup-card-in 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+.popup-root--out .popup__mask {
+  animation: popup-mask-out 0.25s ease forwards;
+}
+
+.popup-root--out .popup__card {
+  animation: popup-card-out 0.25s ease forwards;
+}
+
+@keyframes popup-mask-in {
+  0%   { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@keyframes popup-mask-out {
+  0%   { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+@keyframes popup-card-in {
+  0%   {
+    opacity: 0;
+    transform: scale(0.9) translateY(24rpx);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes popup-card-out {
+  0%   {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.9) translateY(24rpx);
+  }
+}

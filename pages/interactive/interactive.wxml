@@ -1,0 +1,51 @@
+<!--interactive.wxml-->
+<view class="page-container">
+
+  <!-- 全屏背景 -->
+  <image class="bg" src="/images2/bg2.png" mode="aspectFill"></image>
+
+  <!-- 三个功能按钮 -->
+  <view class="nav-wrap">
+    <image
+      class="nav-btn {{pressing1 ? 'btn-press' : ''}}"
+      src="/images2/1.png"
+      mode="widthFix"
+      bindtouchstart="onPress1"
+      bindtouchend="onRelease1"
+      bindtap="onTapBtn1"
+    ></image>
+    <image
+      class="nav-btn {{pressing2 ? 'btn-press' : ''}}"
+      src="/images2/2.png"
+      mode="widthFix"
+      bindtouchstart="onPress2"
+      bindtouchend="onRelease2"
+      bindtap="onTapBtn2"
+    ></image>
+    <image
+      class="nav-btn {{pressing3 ? 'btn-press' : ''}}"
+      src="/images2/3.png"
+      mode="widthFix"
+      bindtouchstart="onPress3"
+      bindtouchend="onRelease3"
+      bindtap="onTapBtn3"
+    ></image>
+  </view>
+
+  <!-- 底部导航栏 -->
+  <view class="tabbar">
+    <view class="tab-item" bindtap="onTabHome">
+      <text class="tab-icon">⌂</text>
+      <text class="tab-label">首页</text>
+    </view>
+    <view class="tab-item tab-active">
+      <text class="tab-icon">◈</text>
+      <text class="tab-label">互动馆</text>
+    </view>
+    <view class="tab-item">
+      <text class="tab-icon">◉</text>
+      <text class="tab-label">我的</text>
+    </view>
+  </view>
+
+</view>

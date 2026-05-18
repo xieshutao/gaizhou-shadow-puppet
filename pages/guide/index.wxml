@@ -1,0 +1,158 @@
+<!-- pages/guide/index.wxml — 盖州皮影戏 · 导航中枢 -->
+<view class="page-container">
+
+  <!-- ========== 全屏舞台背景 ========== -->
+  <view class="stage-bg">
+    <!-- 深色渐变基底 -->
+    <view class="bg-gradient"></view>
+    <!-- 光晕 -->
+    <view class="stage-glow glow-1 {{lampFlicker === 0 ? 'flicker' : ''}}"></view>
+    <view class="stage-glow glow-2 {{lampFlicker === 1 ? 'flicker' : ''}}"></view>
+    <!-- 金色粒子 -->
+    <block wx:if="{{showParticles}}">
+      <view class="particle-container">
+        <view class="particle p1"></view>
+        <view class="particle p2"></view>
+        <view class="particle p3"></view>
+        <view class="particle p4"></view>
+        <view class="particle p5"></view>
+        <view class="particle p6"></view>
+        <view class="particle p7"></view>
+        <view class="particle p8"></view>
+      </view>
+    </block>
+  </view>
+
+  <!-- ========== 加载/欢迎阶段 ========== -->
+  <view class="intro-overlay" wx:if="{{introPhase !== 'ready'}}">
+    <block wx:if="{{introPhase === 'loading'}}">
+      <view class="loading-spinner">
+        <view class="spinner-ring"></view>
+      </view>
+      <text class="loading-text">光影加载中...</text>
+    </block>
+
+    <block wx:if="{{introPhase === 'welcome'}}">
+      <!-- 皮影剪影 -->
+      <view class="silhouette-stage">
+        <view class="silhouette-figure fig-left"></view>
+        <view class="silhouette-figure fig-right"></view>
+        <view class="silhouette-screen"></view>
+      </view>
+      <!-- 逐字显现欢迎语 -->
+      <view class="welcome-text-box">
+        <text class="welcome-text">{{welcomeText}}</text>
+      </view>
+    </block>
+  </view>
+
+  <!-- ========== 主内容区（ready 状态） ========== -->
+  <view class="main-content" wx:if="{{introPhase === 'ready'}}">
+
+    <!-- 品牌标识区 -->
+    <view class="brand-area">
+      <view class="brand-logo-wrap">
+        <text class="brand-icon">戲</text>
+      </view>
+      <text class="brand-title">盖州皮影戏</text>
+      <text class="brand-subtitle">GAIZHOU SHADOW PLAY</text>
+      <view class="brand-line">
+        <view class="line-seg"></view>
+        <text class="line-dot">◆</text>
+        <view class="line-seg"></view>
+      </view>
+      <text class="brand-motto">国家级非物质文化遗产</text>
+
+      <!-- 登录状态 / 入口 -->
+      <view class="login-area" wx:if="{{!isLoggedIn}}">
+        <view class="login-btn" bindtap="onShowLogin">
+          <text class="login-btn-text">微信授权登录</text>
+        </view>
+        <text class="login-hint" bindtap="onSkipLogin">游客模式浏览</text>
+      </view>
+      <view class="login-area logged-in" wx:else>
+        <text class="user-greeting">{{userInfo.nickName}}，欢迎回来</text>
+      </view>
+    </view>
+
+    <!-- 导航卡片区域 -->
+    <view class="nav-grid">
+      <view
+        class="nav-card"
+        wx:for="{{navCards}}"
+        wx:key="id"
+        data-url="{{item.url}}"
+        bindtap="onNavTo"
+      >
+        <view class="card-bg" style="border-color: {{item.color}};">
+          <view class="card-icon-wrap" style="background: {{item.color}}20;">
+            <text class="card-icon" style="color: {{item.color}};">{{item.icon}}</text>
+          </view>
+          <view class="card-info">
+            <text class="card-title">{{item.title}}</text>
+            <text class="card-sub">{{item.subtitle}}</text>
+            <text class="card-desc">{{item.desc}}</text>
+          </view>
+          <view class="card-arrow" style="color: {{item.color}};">→</view>
+        </view>
+        <!-- 四角金线装饰 -->
+        <view class="card-corner c-tl" style="border-color: {{item.color}};"></view>
+        <view class="card-corner c-tr" style="border-color: {{item.color}};"></view>
+        <view class="card-corner c-bl" style="border-color: {{item.color}};"></view>
+        <view class="card-corner c-br" style="border-color: {{item.color}};"></view>
+      </view>
+    </view>
+
+    <!-- 底部印章 -->
+    <view class="seal-area">
+      <text class="seal-text">光影千年</text>
+      <text class="seal-text-sub">匠 心 永 传</text>
+    </view>
+  </view>
+
+  <!-- ========== 登录弹窗（Mock） ========== -->
+  <view class="login-popup-mask {{showLoginPopup ? 'show' : ''}}" catchtap="onCloseLogin"></view>
+  <view class="login-popup {{showLoginPopup ? 'show' : ''}}">
+    <view class="popup-bg">
+      <view class="popup-header">
+        <text class="popup-title">授权登录</text>
+        <text class="popup-close" bindtap="onCloseLogin">✕</text>
+      </view>
+      <view class="popup-body">
+        <view class="avatar-placeholder">
+          <text class="avatar-icon">戲</text>
+        </view>
+        <text class="popup-desc">授权后您将获得：</text>
+        <view class="popup-features">
+          <text class="feature-item">✦ 收藏心仪皮影剧目</text>
+          <text class="feature-item">✦ 记录您的创作作品</text>
+          <text class="feature-item">✦ 参与角色识别挑战</text>
+        </view>
+        <view class="popup-actions">
+          <view class="btn-login {{loginLoading ? 'loading' : ''}}" bindtap="onMockLogin">
+            <text wx:if="{{!loginLoading}}">微信一键登录</text>
+            <text wx:else>登录中...</text>
+          </view>
+          <text class="btn-skip" bindtap="onSkipLogin">暂不登录，先看看</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- ========== 底部导航栏 ========== -->
+  <view class="tabbar">
+    <view class="tab-item" bindtap="onTabHome">
+      <text class="tab-icon">⌂</text>
+      <text class="tab-label">首页</text>
+    </view>
+    <view class="tab-item" bindtap="onTabInteractive">
+      <text class="tab-icon">◈</text>
+      <text class="tab-label">互动馆</text>
+    </view>
+    <view class="tab-item tab-active">
+      <text class="tab-icon">戯</text>
+      <text class="tab-label">导览</text>
+    </view>
+  </view>
+
+</view>

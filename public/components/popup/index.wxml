@@ -1,0 +1,40 @@
+<view
+  wx:if="{{visible}}"
+  class="popup-root {{animating ? 'popup-root--in' : 'popup-root--out'}}"
+>
+  <!-- Dark blurred backdrop -->
+  <view class="popup__mask" bindtap="onMaskTap"></view>
+
+  <!-- Popup card -->
+  <view
+    class="popup__card"
+    style="width: {{width}};"
+    catch:tap="onPopupTap"
+  >
+    <!-- Header: title + close button -->
+    <view class="popup__header">
+      <view class="popup__title">
+        <text wx:if="{{title}}">{{title}}</text>
+        <slot wx:else name="title"></slot>
+      </view>
+      <view
+        wx:if="{{closable}}"
+        class="popup__close"
+        bindtap="onClose"
+        hover-class="popup__close--hover"
+      >
+        <text class="popup__close-icon">✕</text>
+      </view>
+    </view>
+
+    <!-- Content -->
+    <view class="popup__content">
+      <slot name="content"></slot>
+    </view>
+
+    <!-- Footer: buttons -->
+    <view class="popup__footer">
+      <slot name="buttons"></slot>
+    </view>
+  </view>
+</view>

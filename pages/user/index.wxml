@@ -1,0 +1,7 @@
+<!-- packageTab/pages/user/index.wxml -->
+<view class="page-container curtain-bg">
+  <navigation-bar title="我的" background="transparent" color="#D4AF37" back="{{false}}" />
+  <view class="page-body flex-center">
+    <text class="gold-text" style="font-size: var(--font-xl);">我的 · 皮影札记</text>
+  </view>
+</view>

@@ -1,0 +1,53 @@
+<view
+  class="nav-top {{transparent ? 'nav-top--transparent' : ''}} {{platform}}"
+  style="padding-top: {{statusBarHeight}}px; {{show ? '' : 'display:none;'}}"
+>
+  <view
+    class="nav-top__inner"
+    style="
+      height: {{navBarHeight}}px;
+      background: {{transparent ? 'transparent' : (background || '#0a0604')}};
+      {{transparent ? '' : 'border-bottom: 1rpx solid rgba(212, 175, 55, 0.15);'}}
+    "
+  >
+    <!-- Left area: back button / home button -->
+    <view class="nav-top__left" style="width: {{capsuleRight > 0 ? (capsuleRight - capsuleWidth - 8) : 87}}px;">
+      <!-- Back button -->
+      <view
+        wx:if="{{back && !homeButton}}"
+        class="nav-top__back-btn"
+        bindtap="onBack"
+        hover-class="nav-top__back-btn--hover"
+        hover-stay-time="100"
+      >
+        <view class="nav-top__back-arrow" style="background-color: {{color}};"></view>
+      </view>
+      <!-- Home button -->
+      <view
+        wx:if="{{homeButton}}"
+        class="nav-top__home-btn"
+        bindtap="onHome"
+        hover-class="nav-top__back-btn--hover"
+        hover-stay-time="100"
+      >
+        <text class="nav-top__home-icon">⌂</text>
+      </view>
+      <!-- Custom left slot -->
+      <slot name="left"></slot>
+    </view>
+
+    <!-- Center: title -->
+    <view class="nav-top__center" style="color: {{color}};">
+      <text wx:if="{{title}}" class="nav-top__title">{{title}}</text>
+      <slot wx:else name="center"></slot>
+    </view>
+
+    <!-- Right: capsule spacing area (reserve space for WeChat capsule) -->
+    <view class="nav-top__right" style="width: {{windowWidth - capsuleRight}}px;">
+      <slot name="right"></slot>
+    </view>
+  </view>
+</view>
+
+<!-- Placeholder to push content down -->
+<view wx:if="{{show}}" class="nav-top__placeholder" style="height: {{statusBarHeight + navBarHeight}}px;"></view>

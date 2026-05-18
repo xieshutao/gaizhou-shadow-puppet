@@ -1,0 +1,260 @@
+/* pages/create-play/create-play.wxss */
+/* 盖州皮影 · AI造戏 — 影窗戏台 */
+
+page { height: 100vh; overflow: hidden; background: #000; }
+.page-root { position: relative; width: 100vw; height: 100vh; overflow: hidden; }
+
+/* ==================== 舞台背景 ==================== */
+.stage-bg {
+  position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0;
+  background: radial-gradient(ellipse at 50% 35%, #1a0e06 0%, #0a0402 55%, #020101 100%);
+}
+.spotlight {
+  position: absolute; top: 3%; left: 8%; width: 84%; height: 94%; z-index: 1; pointer-events: none;
+  background: radial-gradient(ellipse at 50% 42%, rgba(212,175,55,0.06) 0%, transparent 65%);
+}
+.vignette {
+  position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 2; pointer-events: none;
+  box-shadow: inset 0 0 160rpx 80rpx rgba(0,0,0,0.8);
+}
+.curtain-l, .curtain-r {
+  position: absolute; top: 0; bottom: 0; width: 44rpx; z-index: 3; pointer-events: none;
+}
+.curtain-l {
+  left: 0;
+  background: linear-gradient(to right, rgba(70,12,8,0.55) 0%, rgba(35,4,2,0.2) 55%, transparent 100%);
+  border-right: 1rpx solid rgba(180,120,30,0.18);
+}
+.curtain-r {
+  right: 0;
+  background: linear-gradient(to left, rgba(70,12,8,0.55) 0%, rgba(35,4,2,0.2) 55%, transparent 100%);
+  border-left: 1rpx solid rgba(180,120,30,0.18);
+}
+.curtain-top-bar {
+  position: absolute; top: 0; left: 0; right: 0; height: 36rpx; z-index: 3; pointer-events: none;
+  background: linear-gradient(to bottom, rgba(55,8,4,0.45) 0%, transparent 100%);
+}
+
+/* ==================== 输入层 ==================== */
+.layer-input {
+  position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10;
+  display: flex; flex-direction: column;
+  padding-top: calc(env(safe-area-inset-top) + 20rpx);
+}
+
+/* 标题 */
+.hd {
+  display: flex; flex-direction: column; align-items: center; gap: 4rpx;
+  padding: 0 40rpx 10rpx;
+}
+.hd-title {
+  font-size: 46rpx; font-weight: bold; color: #D4AF37;
+  letter-spacing: 14rpx; font-family: "SimSun","宋体",serif;
+  text-shadow: 0 2rpx 12rpx rgba(0,0,0,0.8);
+}
+.hd-sub {
+  font-size: 22rpx; color: rgba(255,255,255,0.3); letter-spacing: 4rpx;
+}
+
+/* 搜索 */
+.search-box { padding: 8rpx 32rpx 4rpx; }
+.search-inp {
+  width: 100%; height: 60rpx; padding: 0 26rpx; box-sizing: border-box;
+  background: rgba(255,255,255,0.05); border: 1rpx solid rgba(255,255,255,0.08);
+  border-radius: 30rpx; color: rgba(255,255,255,0.7); font-size: 24rpx;
+}
+
+/* 当前已选 */
+.picks-bar {
+  display: flex; align-items: center; justify-content: center; gap: 10rpx;
+  padding: 12rpx 32rpx 8rpx;
+}
+.picks-item {
+  font-size: 22rpx; color: rgba(255,255,255,0.18); letter-spacing: 2rpx;
+  transition: color 0.25s;
+}
+.picks-on { color: #D4AF37; font-weight: bold; }
+.picks-arrow { font-size: 20rpx; color: rgba(255,255,255,0.1); }
+
+/* 分区 */
+.sec { padding: 4rpx 0; flex-shrink: 0; }
+.sec-sm { padding: 2rpx 0; }
+.sec-hd {
+  display: flex; align-items: center; gap: 8rpx;
+  padding: 0 32rpx 6rpx;
+}
+.sec-dot { font-size: 16rpx; color: #D4AF37; }
+.sec-tit { font-size: 22rpx; color: #D4AF37; font-weight: bold; letter-spacing: 4rpx; }
+.sec-tag { font-size: 18rpx; color: rgba(255,255,255,0.2); margin-left: 4rpx; }
+
+/* 横向滚动行 */
+.row-scroll { white-space: nowrap; padding: 0 28rpx; }
+
+/* === 故事卡片 === */
+.story-card {
+  display: inline-flex; flex-direction: column; gap: 8rpx;
+  width: 340rpx; padding: 20rpx 22rpx; margin-right: 18rpx;
+  background: rgba(255,255,255,0.035); border: 1rpx solid rgba(212,175,55,0.08);
+  border-radius: 18rpx; white-space: normal; vertical-align: top;
+  transition: all 0.2s;
+}
+.card-active {
+  background: rgba(212,175,55,0.08); border-color: rgba(212,175,55,0.35);
+  box-shadow: 0 0 24rpx rgba(212,175,55,0.12);
+}
+.sc-top { display: flex; }
+.sc-era {
+  font-size: 18rpx; padding: 2rpx 12rpx; border-radius: 6rpx; letter-spacing: 2rpx;
+}
+.trad { background: rgba(180,120,30,0.2); color: #D4AF37; }
+.mod  { background: rgba(100,190,230,0.15); color: #7EC8E3; }
+.sc-name {
+  font-size: 30rpx; color: rgba(255,255,255,0.9); font-weight: bold;
+  letter-spacing: 3rpx; font-family: "SimSun","宋体",serif;
+}
+.sc-desc {
+  font-size: 20rpx; color: rgba(255,255,255,0.38); line-height: 1.6; letter-spacing: 1rpx;
+  display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; overflow: hidden;
+}
+
+/* === 标签芯片（人物/场景/特效）=== */
+.chip {
+  display: inline-flex; align-items: center; gap: 6rpx;
+  padding: 12rpx 28rpx; margin-right: 14rpx;
+  background: rgba(255,255,255,0.04); border: 1rpx solid rgba(255,255,255,0.06);
+  border-radius: 28rpx; white-space: nowrap; vertical-align: middle;
+  transition: all 0.2s;
+}
+.chip-on {
+  background: rgba(212,175,55,0.1); border-color: rgba(212,175,55,0.35);
+  box-shadow: 0 0 16rpx rgba(212,175,55,0.1);
+}
+.chip-role {
+  font-size: 18rpx; color: rgba(255,255,255,0.35);
+  padding: 1rpx 8rpx; background: rgba(255,255,255,0.05); border-radius: 4rpx;
+}
+.chip-name {
+  font-size: 24rpx; color: rgba(255,255,255,0.75); font-weight: bold; letter-spacing: 2rpx;
+}
+.chip-on .chip-name { color: #D4AF37; }
+
+/* 生成按钮 */
+.btn-wrap {
+  flex: 1; display: flex; align-items: flex-end; justify-content: center;
+  padding: 20rpx 40rpx 30rpx;
+}
+.btn-main {
+  width: 100%; height: 80rpx; display: flex; align-items: center; justify-content: center;
+  background: linear-gradient(135deg, rgba(212,175,55,0.25) 0%, rgba(160,110,25,0.2) 100%);
+  border: 1rpx solid rgba(212,175,55,0.3); border-radius: 40rpx;
+}
+.btn-main:active { transform: scale(0.97); opacity: 0.85; }
+.btn-txt { font-size: 30rpx; color: #D4AF37; font-weight: bold; letter-spacing: 6rpx; }
+.btn-reset { background: rgba(255,255,255,0.04); border-color: rgba(255,255,255,0.12); }
+.btn-reset .btn-txt { color: rgba(255,255,255,0.5); }
+
+/* ==================== 结果层 ==================== */
+.layer-result {
+  position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10;
+  display: flex; flex-direction: column; align-items: center;
+  padding-top: calc(env(safe-area-inset-top) + 30rpx);
+  overflow-y: auto;
+}
+
+/* === 影窗 === */
+.screen {
+  position: relative;
+  width: 580rpx; min-height: 520rpx;
+  margin: 20rpx auto 0;
+  padding: 48rpx 40rpx 40rpx;
+  background: linear-gradient(180deg, rgba(245,235,210,0.12) 0%, rgba(230,215,180,0.08) 100%);
+  border: 2rpx solid rgba(180,120,30,0.3);
+  border-radius: 8rpx;
+  box-shadow:
+    0 0 80rpx rgba(212,175,55,0.08),
+    inset 0 0 40rpx rgba(212,175,55,0.04);
+  display: flex; flex-direction: column; align-items: center;
+}
+/* 影窗内框装饰 */
+.screen-border {
+  position: absolute; top: 8rpx; left: 8rpx; right: 8rpx; bottom: 8rpx;
+  border: 1rpx solid rgba(180,120,30,0.12);
+  border-radius: 4rpx; pointer-events: none;
+}
+
+/* 影窗-故事标题区 */
+.screen-story {
+  display: flex; flex-direction: column; align-items: center; gap: 6rpx;
+  margin-bottom: 28rpx;
+}
+.ss-era {
+  font-size: 20rpx; padding: 3rpx 16rpx; border-radius: 8rpx; letter-spacing: 2rpx;
+}
+.ss-name {
+  font-size: 48rpx; color: #D4AF37; font-weight: bold;
+  font-family: "SimSun","宋体",serif; letter-spacing: 8rpx;
+  text-shadow: 0 0 20rpx rgba(212,175,55,0.25);
+}
+
+/* 影窗-人物区 */
+.screen-hero {
+  display: flex; flex-direction: column; align-items: center; gap: 8rpx;
+  margin-bottom: 28rpx;
+  padding: 20rpx 36rpx;
+  background: rgba(0,0,0,0.2); border-radius: 12rpx;
+  border: 1rpx solid rgba(212,175,55,0.1);
+}
+.sh-role {
+  font-size: 20rpx; color: rgba(255,255,255,0.35);
+  padding: 2rpx 14rpx; background: rgba(212,175,55,0.08); border-radius: 6rpx;
+}
+.sh-name {
+  font-size: 36rpx; color: rgba(255,255,255,0.9); font-weight: bold;
+  font-family: "SimSun","宋体",serif; letter-spacing: 6rpx;
+}
+.sh-line {
+  font-size: 22rpx; color: rgba(255,255,255,0.45); letter-spacing: 2rpx; text-align: center;
+}
+
+/* 影窗-底部信息行 */
+.screen-info {
+  display: flex; align-items: center; gap: 28rpx;
+  padding: 14rpx 32rpx;
+  background: rgba(0,0,0,0.15); border-radius: 10rpx;
+  border: 1rpx solid rgba(255,255,255,0.04);
+}
+.si-item { display: flex; flex-direction: column; align-items: center; gap: 2rpx; }
+.si-label { font-size: 18rpx; color: rgba(255,255,255,0.25); letter-spacing: 2rpx; }
+.si-val   { font-size: 24rpx; color: rgba(255,255,255,0.65); font-weight: bold; letter-spacing: 2rpx; }
+.si-div   { font-size: 28rpx; color: rgba(255,255,255,0.08); }
+
+/* 梗概 */
+.synopsis {
+  width: 580rpx; margin-top: 20rpx; padding: 20rpx 32rpx;
+  background: rgba(10,5,2,0.7); border: 1rpx solid rgba(255,255,255,0.05);
+  border-radius: 14rpx;
+}
+.syn-text {
+  font-size: 24rpx; color: rgba(255,255,255,0.5); line-height: 1.8; letter-spacing: 2rpx;
+}
+
+/* 出处 */
+.credit {
+  padding: 14rpx 0 0;
+}
+.credit-text {
+  font-size: 20rpx; color: rgba(212,175,55,0.35); letter-spacing: 2rpx;
+}
+
+/* ==================== 底部导航 ==================== */
+.tabbar {
+  position: fixed; bottom: 0; left: 0; width: 100%; z-index: 80;
+  display: flex; justify-content: space-around;
+  padding-top: 12rpx; padding-bottom: calc(env(safe-area-inset-bottom) + 12rpx);
+  background: linear-gradient(to top, rgba(0,0,0,0.94) 0%, rgba(0,0,0,0.35) 100%);
+  border-top: 1rpx solid rgba(212,175,55,0.15);
+}
+.tab-i  { display: flex; flex-direction: column; align-items: center; gap: 3rpx; flex: 1; }
+.tab-ico { font-size: 36rpx; color: rgba(255,255,255,0.3); }
+.tab-lbl { font-size: 20rpx; color: rgba(255,255,255,0.3); }
+.tab-i.on .tab-ico, .tab-i.on .tab-lbl { color: #D4AF37; font-weight: bold; }

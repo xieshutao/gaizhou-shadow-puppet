@@ -1,0 +1,130 @@
+<!-- pages/elder-chat/elder-chat.wxml -->
+<!-- 盖州皮影作坊 — 舞台级AI人物对话 -->
+
+<view class="page-root">
+
+  <!-- ======== 开场 ======== -->
+  <view class="intro-overlay" wx:if="{{introVisible}}">
+    <view class="intro-card">
+      <text class="intro-title">盖州 · 皮影作坊</text>
+      <text class="intro-text">{{introText}}</text>
+      <view class="intro-cursor" wx:if="{{scenePhase === 'intro'}}"></view>
+    </view>
+  </view>
+
+  <!-- ======== 场景选择 ======== -->
+  <view class="scene-layer" wx:if="{{scenePhase === 'scene'}}"
+    bindtouchstart="onSceneTouchStart" bindtouchmove="onSceneTouchMove" bindtouchend="onSceneTouchEnd">
+
+    <image class="scene-bg" src="/image3/bg.jpg" mode="aspectFill"></image>
+
+    <view class="scene-title-bar">
+      <text class="scene-title">盖州皮影作坊</text>
+      <text class="scene-subtitle">轻触人物开始对话</text>
+    </view>
+
+    <view class="hint-float" wx:if="{{highlightedChar}}">
+      <text>{{highlightedChar === 'master' ? '老师傅 · 七十多岁的老艺人' : ''}}{{highlightedChar === 'young' ? '年轻学徒 · 皮影技艺传承人' : ''}}{{highlightedChar === 'teen' ? '小徒弟 · 皮影小小传承人' : ''}}</text>
+    </view>
+
+    <view class="char-spot char-master {{highlightedChar === 'master' ? 'char-glow' : ''}}" bindtap="onCharTapMaster">
+      <image class="char-img" src="/image3/laor1.png" mode="aspectFit"></image>
+      <view class="char-label"><text>老师傅</text></view>
+    </view>
+    <view class="char-spot char-young {{highlightedChar === 'young' ? 'char-glow' : ''}}" bindtap="onCharTapYoung">
+      <image class="char-img" src="/image3/nianq1.png" mode="aspectFit"></image>
+      <view class="char-label"><text>年轻学徒</text></view>
+    </view>
+    <view class="char-spot char-teen {{highlightedChar === 'teen' ? 'char-glow' : ''}}" bindtap="onCharTapTeen">
+      <image class="char-img" src="/image3/shaonian.png" mode="aspectFit"></image>
+      <view class="char-label"><text>小徒弟</text></view>
+    </view>
+  </view>
+
+  <!-- ======== 舞台人物页 ======== -->
+  <view class="stage-page" wx:if="{{scenePhase === 'character'}}">
+
+    <!-- 舞台帷幕 — 左右 -->
+    <view class="curtain curtain-left"></view>
+    <view class="curtain curtain-right"></view>
+    <!-- 帷幕顶部 -->
+    <view class="curtain-top"></view>
+
+    <!-- 聚光灯层 -->
+    <view class="spotlight"></view>
+    <view class="vignette"></view>
+
+    <!-- 漂浮粒子 -->
+    <view class="particles">
+      <view class="particle p-{{item.id}}"
+        wx:for="{{particles}}" wx:key="id"
+        style="left: {{item.left}}%; animation-delay: {{item.delay}}s; animation-duration: {{item.duration}}s; width: {{item.size}}rpx; height: {{item.size}}rpx;">
+      </view>
+    </view>
+
+    <!-- 返回 -->
+    <view class="st-back" catchtap="onBackToScene">
+      <text>〈 返回</text>
+    </view>
+
+    <!-- 名签 -->
+    <view class="st-nametag">
+      <text class="st-name">{{charName}}</text>
+      <text class="st-title">{{charTitle}}</text>
+    </view>
+
+    <!-- 角色图 -->
+    <image class="st-char {{breathUp ? 'breath-up' : 'breath-down'}} {{charPulse ? 'char-pulse' : ''}}"
+      src="{{charImg}}" mode="aspectFit"></image>
+
+    <!-- 用户字幕 -->
+    <view class="st-subtitle st-sub-user" wx:if="{{userSubtitle && !isSpeaking && !isProcessing}}">
+      <text>{{userSubtitle}}</text>
+    </view>
+
+    <!-- AI 字幕 -->
+    <view class="st-subtitle st-sub-ai" wx:if="{{subtitle && isSpeaking}}">
+      <view class="sub-deco-l"></view>
+      <text class="sub-text">{{subtitle}}<text class="sub-cursor">|</text></text>
+      <view class="sub-deco-r"></view>
+    </view>
+
+    <!-- 思考中 -->
+    <view class="st-subtitle st-sub-think" wx:if="{{isProcessing}}">
+      <view class="think-rings">
+        <view class="tr tr1"></view>
+        <view class="tr tr2"></view>
+        <view class="tr tr3"></view>
+      </view>
+    </view>
+
+    <!-- 底部操作 -->
+    <view class="st-bar">
+      <text class="st-hint" wx:if="{{!isSpeaking && !isProcessing && !isRecording}}">
+        {{recorderError ? '请输入文字' : '按住麦克风说话'}}
+      </text>
+      <text class="st-hint st-hint-rec" wx:if="{{isRecording}}">正在聆听...</text>
+
+      <view class="st-row">
+        <input class="st-input {{recorderError ? 'input-focus' : ''}}" placeholder="打字输入..."
+          placeholder-style="color:rgba(255,255,255,0.2)" confirm-type="send"
+          value="{{inputText}}" bindconfirm="onInputConfirm"/>
+        <view class="st-mic-wrap">
+          <view class="st-mic {{isRecording ? 'mic-on' : ''}} {{isSpeaking || isProcessing ? 'mic-off' : ''}}"
+            bindtouchstart="onPressTalk" bindtouchend="onReleaseTalk">
+            <view class="mic-ripple" wx:if="{{micRipple}}"></view>
+            <text class="mic-icon">{{isRecording ? '⏹' : '🎤'}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- ======== 底部导航 ======== -->
+  <view class="tabbar" wx:if="{{scenePhase === 'scene'}}">
+    <view class="tab-item" bindtap="onTabHome"><text class="tab-icon">⌂</text><text class="tab-label">首页</text></view>
+    <view class="tab-item tab-active"><text class="tab-icon">◈</text><text class="tab-label">互动馆</text></view>
+    <view class="tab-item"><text class="tab-icon">💬</text><text class="tab-label">作坊</text></view>
+  </view>
+
+</view>
