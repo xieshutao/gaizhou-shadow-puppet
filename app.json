@@ -31,13 +31,13 @@
   "preloadRule": {
     "pages/index/index": {
       "packages": [
-        "tab-pages"
+        "packageTab"
       ],
       "network": "all"
     },
     "pages/interactive/interactive": {
       "packages": [
-        "knowledge"
+        "packageB"
       ],
       "network": "wifi"
     }
@@ -91,15 +91,5 @@
   "plugins": {},
   "style": "v2",
   "sitemapLocation": "sitemap.json",
-  "lazyCodeLoading": "requiredComponents",
-  "subpackages": [
-    {
-      "root": "packageB",
-      "name": "knowledge",
-      "pages": [
-        "pages/knowledge/knowledge",
-        "pages/character-guide/character-guide"
-      ]
-    }
-  ]
+  "lazyCodeLoading": "requiredComponents"
 }
