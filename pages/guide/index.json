@@ -2,6 +2,6 @@
   "navigationStyle": "custom",
   "disableScroll": true,
   "usingComponents": {
-    "nav-top": "/public/components/navTop/navTop"
+    "nav-top": "/public/components/navTop/index"
   }
 }
